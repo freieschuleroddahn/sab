@@ -68,6 +68,6 @@ aside {
 footer {
     width: 100%;
     height: 300px;
-    background: orange;
+    background: rgb(170, 0, 255);
 } 
 </style>

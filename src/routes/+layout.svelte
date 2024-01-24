@@ -3,7 +3,7 @@
 </script>
 
 <header>
-    <h1>Top</h1>
+    <h1>Schüler*innen-Arbeitsbuch</h1>
     <a href="/">Seite 1</a>
     <a href="/seite2">Seite 2</a>
 </header>

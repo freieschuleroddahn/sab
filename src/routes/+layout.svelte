@@ -1,28 +1,20 @@
 <script>
     import "../app.css";
+	import MainMenue from "$lib/menues/MainMenue.svelte";
+	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
+
 </script>
 
 <header>
     <h1>Schüler*innen-Arbeitsbuch</h1>
-    <a href="/">Seite 1</a>
-    <a href="/seite2">Seite 2</a>
+   <MainMenue />
 </header>
 
 <div>
 
     <aside>
         <h2>Sidebar</h2>
-        <div class="ui vertical pointing   menu">
-            <a class="item">
-              Home
-            </a>
-            <a class="item">
-              Messages
-            </a>
-            <a class="item active">
-              Friends
-            </a>
-          </div>
+        <SidebarMenu />
     </aside>
         
     <main class="ui container">

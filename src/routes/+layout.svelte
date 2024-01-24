@@ -15,6 +15,8 @@
     <aside>
         <h2>Sidebar</h2>
         <SidebarMenu />
+
+        <MainMenue />
     </aside>
         
     <main class="ui container">

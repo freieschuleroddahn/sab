@@ -2,7 +2,6 @@
     import "../app.css";
 	import MainMenue from "$lib/menues/MainMenue.svelte";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
-
 </script>
 
 <header>
@@ -15,8 +14,6 @@
     <aside>
         <h2>Sidebar</h2>
         <SidebarMenu />
-
-        <MainMenue />
     </aside>
         
     <main class="ui container">

@@ -5,5 +5,5 @@
 Seite 2
 
 <Box color="rgba(0,0,0,.1)">
-    <p>Hallo Tfdsfdfd3</p>
+    <p>Hallo Seite2</p>
 </Box>

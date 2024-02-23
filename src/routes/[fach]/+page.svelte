@@ -15,7 +15,7 @@
         faecher = await pb.collection('faecher').getFullList({
             sort: '-created',
             filter: `slug = "${$page.params.fach}"`,
-            expand: "themen(fach)"
+            expand: "themen(fach), themen(fach).kompetenzen(thema)"
         });
         console.log('faecher', faecher);
       }
@@ -35,8 +35,13 @@
   {#each fach.expand["themen(fach)"] as thema}
     <h3>{thema.name}</h3>
 
-    <Kompetenz />
-
+    {#each thema.expand["kompetenzen(thema)"] as data}
+      <Kompetenz {data} />
+      {:else}
+      Keine Kompetenzen in diesem Thema
+    {/each}
+    {:else}
+    Keine Themen in diesem Bereich
   {/each}
 
 {/each}

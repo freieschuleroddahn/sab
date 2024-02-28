@@ -4,7 +4,7 @@
 
 <div class="card">
     <div class="content">
-      <i class="right floated check icon" class:green={document.done} on:click={()=>{document.done=!document.done}}></i>
+      <i class="right floated check icon pointer" class:green={document.done} on:click={()=>{document.done=!document.done}}></i>
       <i class="right floated eye icon"  class:green={document.downloaded}></i>
       <div class="header">{document.name}</div>
       <div class="meta">

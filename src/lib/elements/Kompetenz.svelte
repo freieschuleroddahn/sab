@@ -20,7 +20,7 @@
               </div>
         </div>
         <!-- <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg"> -->
-        <div class="header" on:click={()=>{opened = !opened}}>
+        <div class="header pointer" on:click={()=>{opened = !opened}}>
           {data.name}
         </div>
         <div class="meta">

@@ -4,9 +4,6 @@
     import Kompetenz from '$lib/elements/Kompetenz.svelte';
 
     let faecher = [];
-
-    // console.log("PAGE", $page)
-
   
       const url = 'https://sab.pockethost.io/'
       const pb = new PocketBase(url)
@@ -20,7 +17,7 @@
         console.log('faecher', faecher);
       }
 
-      getFaecher();
+      $: getFaecher($page.params.fach);
       
 </script>
 
@@ -32,17 +29,18 @@
 
   {@html fach.beschreibung}
 
-  {#each fach.expand["themen(fach)"] as thema}
-    <h3>{thema.name}</h3>
+  {#if fach.expand}
+    {#each fach.expand["themen(fach)"] as thema}
+      <h3>{thema.name}</h3>
 
-    {#each thema.expand["kompetenzen(thema)"] as data}
-      <Kompetenz data={data} />
-    {:else}
-      Keine Kompetenzen in diesem Thema
+      {#if thema.expand}
+        {#each thema.expand["kompetenzen(thema)"] as data}
+          <Kompetenz data={data} />
+        {/each}
+      {/if}
+
     {/each}
-  {:else}
-    Keine Themen in diesem Bereich
-  {/each}
+  {/if}
 
 {/each}
 

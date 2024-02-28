@@ -16,19 +16,36 @@
 
       getFaecher();
 
+let active;
 </script>
 
 <div class="ui secondary vertical pointing menu">
 
-  {#each fachbereiche as fachbereich} 
-    <div class="header item">{fachbereich.name}</div>
-    {#if fachbereich.expand}
-      {#each fachbereich.expand["faecher(fachbereich)"] as seite}
-          <a class="item" href="{seite.slug}" class:active={$page.url.pathname == seite.slug}>
-            {seite.name}
-          </a>
-      {/each}
-    {/if}
-    
+  {#each fachbereiche as fachbereich}
+    <div class="item">
+      <div class="header" on:click={()=>{active = fachbereich.id}}>
+        {fachbereich.name}
+      </div>
+
+      <div class="menu">
+        {#if (active == fachbereich.id) && (fachbereich.expand)}
+          {#each fachbereich.expand["faecher(fachbereich)"] as seite}
+              <a class="item" href="{seite.slug}" class:active={$page.url.pathname == seite.slug}>
+                {seite.name}
+              </a>
+          {/each}
+        {/if}
+      </div>
+    </div>
   {/each}
 </div>
+
+<style>
+  /* .header {
+    border-top: 1px solid black !important;
+  }
+
+  .subitems {
+    margin-left: 1rem;
+  } */
+</style>

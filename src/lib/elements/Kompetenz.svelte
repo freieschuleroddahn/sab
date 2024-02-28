@@ -1,29 +1,12 @@
 <script>
-  import PocketBase from 'pocketbase';
+	import Datei from '$lib/elements/Datei.svelte';
 
   export let data;
-  let active = false;
-  let files;
 
-  const url = 'https://sab.pockethost.io/'
-  const pb = new PocketBase(url)
+  let opened = false;
 
-  async function getFiles(id) {
-    const files = await pb.collection('dateien').getFullList({
-        sort: '-created',
-        filter: `kompetenz = "${id}"`,
-        expand: "thema"
-    });
-    console.log(files)
-    return files;
-  }
 
-  function toggleKompetenz(){
-    active=!active;
-    if(active) {
-      files = getFiles(data.id)
-    }
-  }
+  
 </script>
 
 <div class="ui fluid cards">
@@ -37,55 +20,36 @@
               </div>
         </div>
         <!-- <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg"> -->
-        <div class="header" on:click={toggleKompetenz}>
+        <div class="header" on:click={()=>{opened = !opened}}>
           {data.name}
         </div>
         <div class="meta">
           L1, L2
         </div>
 
-        {#if active}
-        <div class="description">
-          {@html data.beschreibung}
-        </div>
-        
-        {#await files}
-          Lade Dateien
-        {:then f}
-        <div class="ui cards">
-            {#each f  as document}
-            <!-- ['Arbeitsblatt (pdf/.docx)','Video (mp4)','Bild'] -->
-            <div class="card">
-              <div class="content">
-                <i class="right floated check icon" class:green={document.done} on:click={()=>{document.done=!document.done}}></i>
-                <i class="right floated eye icon"  class:green={document.downloaded}></i>
-                <div class="header">{document.name}</div>
-                <div class="meta">
-                    <span class="category">{document.file}</span>
-                  </div>
-                <div class="description">
-                  {document.beschreibung}
-                </div>
-              </div>
-              <a class="ui button" href="{`https://sab.pockethost.io/api/files/${document.collectionName}/${document.id}/${document.file}`}" target="_blank" on:click={()=>{document.downloaded=true}}>
-                <i class="download icon"></i>
-                Herunterladen
-              </a>
-            </div>
-            {:else}
-              Keine Dateien
-            {/each}
+     {#if opened}
+    
+          <div class="description">
+            {@html data.beschreibung}
           </div>
-          {/await}
-          {/if}
 
+          {#if data.expand}
+            <div class="ui cards">
+              {#each data.expand["dateien(kompetenz)"] as document}
+                <Datei {document} />
+              {/each}
+            </div>
+          {/if} 
+
+        {/if}
 
       </div>
-      {#if active}
-      <div class="extra content">
-        Optional Fotos/Dateien hochladen zur persöhnlichen Dokumentation
-      </div>
+      {#if opened}
+        <div class="extra content">
+          Optional Fotos/Dateien hochladen zur persöhnlichen Dokumentation
+        </div>
       {/if}
+
     </div>
   </div>
 

@@ -5,7 +5,7 @@
 
     let faecher = [];
 
-    console.log("PAGE", $page)
+    // console.log("PAGE", $page)
 
   
       const url = 'https://sab.pockethost.io/'
@@ -15,7 +15,7 @@
         faecher = await pb.collection('faecher').getFullList({
             sort: '-created',
             filter: `slug = "${$page.params.fach}"`,
-            expand: "themen(fach), themen(fach).kompetenzen(thema)"
+            expand: "themen(fach), themen(fach).kompetenzen(thema), themen(fach).kompetenzen(thema).dateien(kompetenz)"
         });
         console.log('faecher', faecher);
       }
@@ -36,11 +36,11 @@
     <h3>{thema.name}</h3>
 
     {#each thema.expand["kompetenzen(thema)"] as data}
-      <Kompetenz {data} />
-      {:else}
+      <Kompetenz data={data} />
+    {:else}
       Keine Kompetenzen in diesem Thema
     {/each}
-    {:else}
+  {:else}
     Keine Themen in diesem Bereich
   {/each}
 

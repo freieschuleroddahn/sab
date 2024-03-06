@@ -19,7 +19,7 @@
 let active;
 </script>
 
-<div class="ui secondary vertical pointing menu">
+<div class="">
 
   {#each fachbereiche as fachbereich}
     <div class="item">
@@ -41,11 +41,15 @@ let active;
 </div>
 
 <style>
-  /* .header {
-    border-top: 1px solid black !important;
-  }
+  .header {
+cursor: pointer;
+padding: 0.5rem 0;
 
-  .subitems {
-    margin-left: 1rem;
-  } */
+  }
+ .header:hover{
+  opacity: 0.5;
+ }
+ .item {
+  display: block;
+ }
 </style>

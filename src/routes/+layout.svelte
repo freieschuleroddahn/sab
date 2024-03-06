@@ -1,18 +1,19 @@
 <script>
     import "../app.css";
-	import MainMenue from "$lib/menues/MainMenue.svelte";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
 </script>
 
+
 <header>
     <h1>Schüler*innen-Arbeitsbuch</h1>
-   <MainMenue />
+    <a href="/login">Login</a>
+
 </header>
 
 <div>
 
     <aside>
-        <h2>Sidebar</h2>
+        <h2>Menü</h2>
         <SidebarMenu />
     </aside>
         
@@ -34,7 +35,7 @@ div {
 
 header {
     width: 100%;
-    height: 100px;
+    padding: 10px;
     text-align: center;
     position: sticky;
     top:0;

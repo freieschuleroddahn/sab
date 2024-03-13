@@ -42,9 +42,9 @@ let active;
 
 <style>
   .header {
-cursor: pointer;
-padding: 0.5rem 0;
-
+      cursor: pointer;
+      padding: 0.5rem 0;
+      font-weight: bold;
   }
  .header:hover{
   opacity: 0.5;

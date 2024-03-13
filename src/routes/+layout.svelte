@@ -1,12 +1,15 @@
 <script>
     import "../app.css";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
+    import { user } from '$lib/stores/user.js';
 </script>
 
 
 <header>
     <h1>Schüler*innen-Arbeitsbuch</h1>
     <a href="/login">Login</a>
+
+    {$user?.name}
 
 </header>
 

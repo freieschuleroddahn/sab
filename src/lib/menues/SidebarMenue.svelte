@@ -42,7 +42,6 @@ let active;
 
 <style>
   .header {
-      cursor: pointer;
       padding: 0.5rem 0;
       font-weight: bold;
   }
@@ -50,6 +49,7 @@ let active;
   opacity: 0.5;
  }
  .item {
+  cursor: pointer;
   display: block;
  }
 </style>

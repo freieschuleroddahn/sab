@@ -4,6 +4,7 @@
     import Kompetenz from '$lib/elements/Kompetenz.svelte';
 
     let faecher = [];
+    let offen = null;
   
       const url = 'https://sab.pockethost.io/'
       const pb = new PocketBase(url)
@@ -31,11 +32,19 @@
 
   {#if fach.expand}
     {#each fach.expand["themen(fach)"] as thema}
-      <h3>{thema.name}</h3>
+      <h3 class="pointer" on:click={()=>{
+        if(offen == thema.id){
+          offen = null
+        } else{
+          offen = thema.id
+        }
+        
+        }}>{thema.name}</h3>
 
-      {#if thema.expand}
+      {#if thema.expand && offen == thema.id}
         {#each thema.expand["kompetenzen(thema)"] as data}
           <Kompetenz data={data} />
+        
         {/each}
       {/if}
 

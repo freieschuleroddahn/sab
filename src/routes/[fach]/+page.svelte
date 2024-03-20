@@ -32,16 +32,24 @@
 
   {#if fach.expand}
     {#each fach.expand["themen(fach)"] as thema}
-      <h3 class="pointer" on:click={()=>{
+      <h3 class="pointer header" 
+      class:opened={offen == thema.id}
+      on:click={()=>{
         if(offen == thema.id){
           offen = null
         } else{
           offen = thema.id
         }
         
-        }}>{thema.name}</h3>
+        }}>
+          <div class="arrow">⮞</div>
+          {thema.name}
+        </h3>
 
       {#if thema.expand && offen == thema.id}
+      <button class="ui mini purple icon button">
+        <i class="plus icon"></i>
+      </button>
         {#each thema.expand["kompetenzen(thema)"] as data}
           <Kompetenz data={data} />
         
@@ -53,7 +61,19 @@
 
 {/each}
 
-
+<style>
+  
+  .header:hover{
+        opacity: 0.5;
+  }
+  .header .arrow{
+      display: inline-block;
+      transition: all 0.1s ease-out;
+  }
+  .header.opened .arrow{
+    transform: rotate(90deg);
+  }
+</style>
 
 
 

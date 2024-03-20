@@ -23,8 +23,13 @@ let active;
 
   {#each fachbereiche as fachbereich}
     <div class="item">
-      <div class="header" on:click={()=>{active = fachbereich.id}}>
-        {fachbereich.name}
+      <div 
+           class="header"
+           class:opened={(active == fachbereich.id) && (fachbereich.expand)}
+           on:click={()=>{active = fachbereich.id}}
+      >
+        <div class="arrow">⮞</div>
+         {fachbereich.name}
       </div>
 
       <div class="menu">
@@ -40,14 +45,24 @@ let active;
   {/each}
 </div>
 
-<style>
+<style lang="scss">
   .header {
       padding: 0.5rem 0;
-      font-weight: bold;
+      font-weight: bold; 
   }
- .header:hover{
-  opacity: 0.5;
- }
+  .header:hover{
+        opacity: 0.5;
+  }
+  .header .arrow{
+      display: inline-block;
+      transition: all 0.1s ease-out;
+  }
+  .header.opened .arrow{
+    transform: rotate(90deg);
+  }
+  .menu{
+    margin-left: 1rem;
+  }
  .item {
   cursor: pointer;
   display: block;

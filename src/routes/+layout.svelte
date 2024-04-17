@@ -2,6 +2,10 @@
     import "../app.css";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
     import { user } from '$lib/stores/user.js';
+
+    import PocketBase from 'pocketbase';
+    const url = 'https://sab.pockethost.io/'
+    const pb = new PocketBase(url)
 </script>
 
 
@@ -10,7 +14,7 @@
     {#if $user.id == undefined}
         <a href="/login">Login</a>
     {:else}
-        <button on:click={()=>{$user={}}}>Logout</button>
+        <button on:click={()=>{$user={}; pb.authStore.clear();}}>Logout</button>
         {$user?.name}
     {/if}
 

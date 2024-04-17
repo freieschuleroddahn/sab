@@ -7,9 +7,12 @@
 
 <header>
     <h1>Schüler*innen-Arbeitsbuch</h1>
-    <a href="/login">Login</a>
-
-    {$user?.name}
+    {#if $user.id == undefined}
+        <a href="/login">Login</a>
+    {:else}
+        <button on:click={()=>{$user={}}}>Logout</button>
+        {$user?.name}
+    {/if}
 
 </header>
 

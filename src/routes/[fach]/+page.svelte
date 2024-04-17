@@ -13,7 +13,7 @@
         faecher = await pb.collection('faecher').getFullList({
             sort: '-created',
             filter: `slug = "${$page.params.fach}"`,
-            expand: "themen(fach), themen(fach).kompetenzen(thema), themen(fach).kompetenzen(thema).dateien(kompetenz)"
+            expand: "themen(fach), themen(fach).kompetenzen(thema), themen(fach).kompetenzen(thema).dateien(kompetenz), themen(fach).kompetenzen(thema).dateien(kompetenz).user_datei(datei)"
         });
         console.log('faecher', faecher);
       }

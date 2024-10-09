@@ -1,6 +1,8 @@
 <script>
 	import Datei from '$lib/elements/Datei.svelte';
 
+  import RangeSlider from 'svelte-range-slider-pips'
+
   export let data;
 
   let opened = false;
@@ -14,10 +16,20 @@
       <div class="content">
         <div class="right floated">
             <div class="ui buttons">
-                <div class="ui basic red button">Kennengelernt</div>
-                <div class="ui basic orange button">Geübt</div>
-                <div class="ui basic green button">Beherscht</div>
+                <div class="ui basic red button"style="
+                     width: 60px; 
+                    font-size: 0.7rem;
+                    ">kenne</div>
+                <div class="ui basic orange button"style="
+                 width: 120px; 
+                font-size: 0.7rem;
+                ">übe</div>
+                <div class="ui basic green button"style="
+                 width: 60px; 
+                font-size: 0.7rem;
+                ">kann</div>
               </div>
+              <RangeSlider min={0} max={1000} values={[0]}/>
         </div>
         <!-- <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg"> -->
         <div class="header pointer" on:click={()=>{opened = !opened}}>

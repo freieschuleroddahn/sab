@@ -1,4 +1,11 @@
 <script>
+      import PocketBase from 'pocketbase';
+    import { user } from '$lib/stores/user.js';
+
+    const url = 'https://sab.pockethost.io/'
+    const pb = new PocketBase(url)
+
+
 	import Datei from '$lib/elements/Datei.svelte';
 
   import RangeSlider from 'svelte-range-slider-pips'
@@ -7,7 +14,24 @@
 
   let opened = false;
 
+  let wert = [0]; 
+  let loading = false;
 
+  async function saveWert() {
+      loading = true;
+      const data = {
+          "user": $user.id,
+          "kompetenz": data.collectionId,
+          "wert": wert[0]
+      };
+
+  //    if(true == undefined) {
+  //      // create data
+  //      const record = await pb.collection('user_kompetenz').create(data);
+  //    } else {
+  //      const record = await pb.collection('user_datei').update(userDateiID, data);
+  //    }
+    }
   
 </script>
 
@@ -29,7 +53,7 @@
                 font-size: 0.7rem;
                 ">kann</div>
               </div>
-              <RangeSlider min={0} max={1000} values={[0]}/>
+              <RangeSlider min={0} max={1000} bind:values={wert} on:change={saveWert} />
         </div>
         <!-- <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg"> -->
         <div class="header pointer" on:click={()=>{opened = !opened}}>
@@ -38,7 +62,7 @@
         <div class="meta">
           L1, L2
         </div>
-
+        <pre>{JSON.stringify(data,0,2)}</pre>
      {#if opened}
     
           <div class="description">

@@ -7,9 +7,6 @@
 
     export let document;
 
-    let done;
-    let seen;
-
     let loading = false;
 
     async function updateDone(userID, dateiID, userDatei) {

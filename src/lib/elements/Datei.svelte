@@ -39,7 +39,34 @@
       loading = false;
     }
 
+    async function updateSeen(userID, dateiID, userDatei, change = true) {
+      loading = true;
+      const data = {
+          "user": userID,
+          "datei": dateiID,
+          "seen": true
+      };
 
+      if(userDatei == undefined) {
+        // create data
+        const record = await pb.collection('user_datei').create(data);
+        document.expand = {
+          "user_datei(datei)": [
+            record
+          ]
+        }
+      } else {
+        // update data
+        if(change) {
+          data.seen = !userDatei["user_datei(datei)"][0].seen
+        }
+        const userDateiID = userDatei["user_datei(datei)"][0].id;
+        const record = await pb.collection('user_datei').update(userDateiID, data);
+        document.expand["user_datei(datei)"][0] = record;
+      }
+
+      loading = false;
+    }
 
 </script>
 
@@ -47,7 +74,7 @@
     <div class="content">
       <i class:test={loading} class="right floated check icon pointer" class:green={(document?.expand && document?.expand["user_datei(datei)"][0].done)} on:click={()=>{updateDone($user.id, document.id, document.expand);}}></i>
 
-      <i class="right floated eye icon"  class:green={(document?.expand && document?.expand["user_datei(datei)"][0].seen)}></i>
+      <i class:test={loading} class="right floated eye icon"  class:green={(document?.expand && document?.expand["user_datei(datei)"][0].seen)} on:click={()=>{updateSeen($user.id, document.id, document.expand);}}></i>
 
       <div class="header">{document.name}</div>
       <div class="meta">
@@ -60,7 +87,7 @@
 
       </div>
     </div>
-    <a class="ui button" href="{`https://sab.pockethost.io/api/files/${document.collectionName}/${document.id}/${document.file}`}" target="_blank" on:click={()=>{document.downloaded=true}}>
+    <a class="ui button" href="{`https://sab.pockethost.io/api/files/${document.collectionName}/${document.id}/${document.file}`}" target="_blank" on:click={()=>{updateSeen($user.id, document.id, document.expand, false);}}>
       <i class="download icon"></i>
       Herunterladen
     </a>

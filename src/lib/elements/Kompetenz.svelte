@@ -1,8 +1,7 @@
 <script>
       import PocketBase from 'pocketbase';
     import { user } from '$lib/stores/user.js';
-
-
+  import RangeSlider from 'svelte-range-slider-pips';
 	import Datei from '$lib/elements/Datei.svelte';
 
   const pb = new PocketBase('https://sab-roddahn.kruw.de/');
@@ -59,7 +58,6 @@
         <div class="meta">
           L1, L2
         </div>
-        <pre>{JSON.stringify(data,0,2)}</pre>
      {#if opened}
     
           <div class="description">

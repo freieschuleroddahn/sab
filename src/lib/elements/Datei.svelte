@@ -68,9 +68,9 @@
 
 <div class="card">
     <div class="content">
-      <i class:test={loading} class="right floated check icon pointer" class:green={(document?.expand && document?.expand["user_datei(datei)"][0].done)} on:click={()=>{updateDone($user.id, document.id, document.expand);}}></i>
+      <i class:test={loading} class="right floated check icon pointer" class:green={(document?.expand && document?.expand?.["user_datei(datei)"]?.[0].done)} on:click={()=>{updateDone($user.id, document.id, document.expand);}}></i>
 
-      <i class:test={loading} class="right floated eye icon"  class:green={(document?.expand && document?.expand["user_datei(datei)"][0].seen)} on:click={()=>{updateSeen($user.id, document.id, document.expand);}}></i>
+      <i class:test={loading} class="right floated eye icon"  class:green={(document?.expand && document?.expand?.["user_datei(datei)"]?.[0].seen)} on:click={()=>{updateSeen($user.id, document.id, document.expand);}}></i>
 
       <div class="header">{document.name}</div>
       <div class="meta">

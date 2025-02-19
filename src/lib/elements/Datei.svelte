@@ -2,8 +2,7 @@
     import PocketBase from 'pocketbase';
     import { user } from '$lib/stores/user.js';
 
-    const url = 'https://sab.pockethost.io/'
-    const pb = new PocketBase(url)
+    const pb = new PocketBase('https://sab-roddahn.kruw.de/');
 
     export let document;
 

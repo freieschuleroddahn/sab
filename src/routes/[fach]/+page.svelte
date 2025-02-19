@@ -1,24 +1,24 @@
-<script>
+<script lang="ts">
     import { page } from '$app/stores';
     import PocketBase from 'pocketbase';
     import Kompetenz from '$lib/elements/Kompetenz.svelte';
 
     let faecher = [];
-    let offen = null;
+    let offen: any = null;
   
-      const url = 'https://sab.pockethost.io/'
+      const url = 'https://sab-roddahn.kruw.de/'
       const pb = new PocketBase(url)
 
-      async function getFaecher() {
-        faecher = await pb.collection('faecher').getFullList({
-            sort: '-created',
-            filter: `slug = "${$page.params.fach}"`,
-            expand: "themen(fach), themen(fach).kompetenzen(thema), themen(fach).kompetenzen(thema).dateien(kompetenz), themen(fach).kompetenzen(thema).dateien(kompetenz).user_datei(datei)"
-        });
-        console.log('faecher', faecher);
-      }
+async function getFaecher(fach) {
+  faecher = await pb.collection('faecher').getFullList({
+      sort: '-created',
+      filter: `slug = "${fach}"`,
+      expand: "themen(fach), themen(fach).kompetenzen(thema), themen(fach).kompetenzen(thema).dateien(kompetenz), themen(fach).kompetenzen(thema).dateien(kompetenz).user_datei(datei), themen(fach).kompetenzen(thema).user_kompetenz(kompetenz),, themen(fach).kompetenzen(thema).user_kompetenz_datei(kompetenz)"
+  });
+  console.log('faecher', faecher);
+}
 
-      $: getFaecher($page.params.fach);
+$: getFaecher($page.params.fach);
       
 </script>
 
@@ -30,7 +30,7 @@
 
   {@html fach.beschreibung}
 
-  {#if fach.expand}
+  {#if fach.expand?.["themen(fach)"]}
     {#each fach.expand["themen(fach)"] as thema}
       <h3 class="pointer header" 
       class:opened={offen == thema.id}
@@ -50,10 +50,11 @@
       <button class="ui mini purple icon button">
         <i class="plus icon"></i>
       </button>
-        {#each thema.expand["kompetenzen(thema)"] as data}
-          <Kompetenz data={data} />
-        
-        {/each}
+        {#if thema.expand?.["kompetenzen(thema)"]}
+          {#each thema.expand["kompetenzen(thema)"] as data}
+            <Kompetenz data={data} />
+          {/each}
+        {/if}
       {/if}
 
     {/each}
@@ -74,7 +75,3 @@
     transform: rotate(90deg);
   }
 </style>
-
-
-
-  

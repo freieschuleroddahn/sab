@@ -3,7 +3,7 @@
     import PocketBase from 'pocketbase';
     import { user } from '$lib/stores/user.js';
 
-    const url = 'https://sab.pockethost.io/'
+    const url = 'https://sab-roddahn.kruw.de/'
     const pb = new PocketBase(url)
 
     let password = "";
@@ -19,7 +19,7 @@
   </script>
 
 {#if !$user?.id}
-<form>
+<div>
   <h1>Log in</h1>
 
   <div>
@@ -42,7 +42,7 @@
 
   </div>
 
-</form>
+</div>
 {:else}
   {$user.name}
 

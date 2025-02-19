@@ -4,7 +4,7 @@
     import { user } from '$lib/stores/user.js';
 
     import PocketBase from 'pocketbase';
-    const url = 'https://sab.pockethost.io/'
+    const url = 'https://sab-roddahn.kruw.de/'
     const pb = new PocketBase(url)
 </script>
 

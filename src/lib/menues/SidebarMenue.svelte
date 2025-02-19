@@ -3,6 +3,7 @@
   import PocketBase from 'pocketbase';
 
   let fachbereiche = [];
+  const pb = new PocketBase('https://sab-roddahn.kruw.de/');
 
   const url = 'https://sab.pockethost.io/'
       const pb = new PocketBase(url)

@@ -8,7 +8,7 @@
 
 	import Datei from '$lib/elements/Datei.svelte';
 
-  import RangeSlider from 'svelte-range-slider-pips'
+  const pb = new PocketBase('https://sab-roddahn.kruw.de/');
 
   export let data;
 

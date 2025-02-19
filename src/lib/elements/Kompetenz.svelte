@@ -2,9 +2,6 @@
       import PocketBase from 'pocketbase';
     import { user } from '$lib/stores/user.js';
 
-    const url = 'https://sab.pockethost.io/'
-    const pb = new PocketBase(url)
-
 
 	import Datei from '$lib/elements/Datei.svelte';
 

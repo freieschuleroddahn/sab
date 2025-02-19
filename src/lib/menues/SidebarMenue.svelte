@@ -3,21 +3,23 @@
   import PocketBase from 'pocketbase';
 
   let fachbereiche = [];
+  let active;
+
   const pb = new PocketBase('https://sab-roddahn.kruw.de/');
 
-  const url = 'https://sab.pockethost.io/'
-      const pb = new PocketBase(url)
-      async function getFaecher() {
-        fachbereiche = await pb.collection('fachbereiche').getFullList({
-            sort: '-created',
-            expand: "faecher(fachbereich)"
-        });
-        console.log('fachbereiche', fachbereiche);
-      }
+  async function getFaecher() {
+    try {
+      fachbereiche = await pb.collection('fachbereiche').getFullList({
+        sort: '-created',
+        expand: "faecher(fachbereich)"
+      });
+      console.log('Fachbereiche loaded:', fachbereiche);
+    } catch (error) {
+      console.error('Error loading Fachbereiche:', error);
+    }
+  }
 
-      getFaecher();
-
-let active;
+  getFaecher();
 </script>
 
 <div class="">

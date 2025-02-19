@@ -83,7 +83,7 @@
 
       </div>
     </div>
-    <a class="ui button" href="{`https://sab.pockethost.io/api/files/${document.collectionName}/${document.id}/${document.file}`}" target="_blank" on:click={()=>{updateSeen($user.id, document.id, document.expand, false);}}>
+    <a class="ui button" href="{`https://sab-roddahn.kruw.de/api/files/${document.collectionName}/${document.id}/${document.file}`}" target="_blank" on:click={()=>{updateSeen($user.id, document.id, document.expand, false);}}>
       <i class="download icon"></i>
       Herunterladen
     </a>

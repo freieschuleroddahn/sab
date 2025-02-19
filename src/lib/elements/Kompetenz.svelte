@@ -10,26 +10,38 @@
 
   let opened = false;
 
-  let wert = [0]; 
+
+  // let ukFiles = [];
+  let wert = [0];
+  let userKompetenzRecord;
+  
+  $: {
+    const uk = data?.expand?.['user_kompetenz(kompetenz)']?.[0] || {};
+    userKompetenzRecord = uk;
+    wert = [uk?.wert || 0];
+  }
+
   let loading = false;
 
-  async function saveWert() {
+  async function saveWert(e) {
       loading = true;
-      const data = {
+      const newData = {
           "user": $user.id,
-          "kompetenz": data.collectionId,
-          "wert": wert[0]
+          "kompetenz": data.id,
+          "wert": e.detail.values[0]
       };
 
-  //    if(true == undefined) {
-  //      // create data
-  //      const record = await pb.collection('user_kompetenz').create(data);
-  //    } else {
-  //      const record = await pb.collection('user_datei').update(userDateiID, data);
-  //    }
+     if(userKompetenzRecord?.id) {
+      userKompetenzRecord = await pb.collection('user_kompetenz').update(userKompetenzRecord.id, newData);
+     } else {
+      // create data
+      userKompetenzRecord = await pb.collection('user_kompetenz').create(newData);
+     }
     }
   
 </script>
+
+<!-- <pre>{JSON.stringify(data,0,2)}</pre> -->
 
 <div class="ui fluid cards">
     <div class="ui fluid card">
@@ -49,7 +61,7 @@
                 font-size: 0.7rem;
                 ">kann</div>
               </div>
-              <RangeSlider min={0} max={1000} bind:values={wert} on:change={saveWert} />
+              <RangeSlider min={0} max={1000} values={wert} on:change={saveWert} />
         </div>
         <!-- <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg"> -->
         <div class="header pointer" on:click={()=>{opened = !opened}}>

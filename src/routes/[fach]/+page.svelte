@@ -2,9 +2,11 @@
     import { page } from '$app/stores';
     import PocketBase from 'pocketbase';
     import Kompetenz from '$lib/elements/Kompetenz.svelte';
+    import { user } from '$lib/stores/user.js';
 
-    let faecher = [];
+    let faecher: Array<Object> = [];
     let offen: any = null;
+    let userKompetenzen: Array<Object> = [];
   
       const url = 'https://sab-roddahn.kruw.de/'
       const pb = new PocketBase(url)
@@ -17,8 +19,19 @@ async function getFaecher(fach) {
   });
   console.log('faecher', faecher);
 }
-
 $: getFaecher($page.params.fach);
+
+async function getCustomUserKompetenz(fach) {
+      if($user.id==undefined) {
+        return;
+      }
+      userKompetenzen = await pb.collection('eigene_kompetenzen').getFullList({
+        filter: `fach.slug = "${fach}"`,
+        expand: "fach"
+      });
+      console.log('userKompetenzen', userKompetenzen);
+    }
+    $: getCustomUserKompetenz($page.params.fach);
       
 </script>
 
@@ -52,6 +65,7 @@ $: getFaecher($page.params.fach);
       </button>
         {#if thema.expand?.["kompetenzen(thema)"]}
           {#each thema.expand["kompetenzen(thema)"] as data}
+          <!-- {JSON.stringify(data)} -->
             <Kompetenz data={data} />
           {/each}
         {/if}
@@ -59,6 +73,15 @@ $: getFaecher($page.params.fach);
 
     {/each}
   {/if}
+
+  <h3 class="pointer header">
+          Selbst erstellte Kompetenzen
+    </h3>
+
+  {#each userKompetenzen as kompetenz}
+  <!-- {JSON.stringify(kompetenz)} -->
+    <Kompetenz data={kompetenz} />
+  {/each}
 
 {/each}
 

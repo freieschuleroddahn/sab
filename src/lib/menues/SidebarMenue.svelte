@@ -70,4 +70,11 @@
   cursor: pointer;
   display: block;
  }
+
+ a {color: black;}
+
+ a:hover {
+  opacity: 0.5;
+ }
+
 </style>

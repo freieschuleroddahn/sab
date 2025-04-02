@@ -6,3 +6,51 @@
 .pointer {
     cursor: pointer;
 }
+
+
+:root {
+    --background-light: #ffffff;
+    --background-dark: #121212;
+    --text-light: #333333;
+    --text-dark: #f0f0f0;
+    --primary-light: #028a21;
+    --primary-dark: #006b12;
+    --text-on-primary: #efefef;
+
+    --border-radius: 8px;
+  }
+  
+  /* Standard-Styles für den Light Mode */
+  body {
+    --background: var(--background-light);
+    --text: var(--text-light);
+    --primary: var(--primary-light);
+    
+  }
+  
+  /* Styles für den Dark Mode */
+  @media (prefers-color-scheme: dark) {
+    
+    body {
+        --background: var(--background-dark);
+        --text: var(--text-dark);
+        --primary: var(--primary-dark)
+    }
+  
+  }
+
+
+  body {
+  background-color: var(--background);
+  color: var(--text);
+  }
+
+a {
+    color: var(--primary);
+}
+
+button {
+    background-color: var(--primary);
+    color: var(--text);
+}
+  

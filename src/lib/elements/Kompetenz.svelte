@@ -78,7 +78,7 @@
 
           {#if data.expand}
             <div class="ui cards">
-              {#each data.expand["dateien(kompetenz)"] as document}
+              {#each (data.expand["dateien(kompetenz)"] ?? []) as document}
                 <Datei {document} />
               {/each}
             </div>

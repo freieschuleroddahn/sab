@@ -66,12 +66,12 @@ getFaecher();
       border-radius: var(--border-radius);
       transition: all 0.2s;
       &:hover {
-     //   background-color: rgba(7, 84, 0, 0.336);
+       background-color: hsl(var(--primary-color), 50%, 90%);
       }
       
     }
     .header {
-      background-color: var(--primary);
+      background-color: hsl(var(--primary-color), 50%, 50%);
       
       border-radius: var(--border-radius) var(--border-radius) 0 0;
       padding: 1em;
@@ -91,7 +91,7 @@ getFaecher();
         color: var(--text);
         transition: all 0.3s;
         &:hover {
-          background-color: var(--primary);
+          background-color: hsl(var(--primary-color), 50%, 50%);
           color: var(--text-on-primary);
         }
     }

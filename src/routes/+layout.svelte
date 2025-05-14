@@ -2,42 +2,50 @@
     import "../app.css";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
     import { user } from '$lib/stores/user.js';
+    import ThemeSelect from "$lib/components/ThemeSelect.svelte";
 
     import PocketBase from 'pocketbase';
     const url = 'https://sab-roddahn.kruw.de/'
     const pb = new PocketBase(url)
+
+    let color = 0;
 </script>
 
+<ThemeSelect bind:color />
 
-<header>
-    <h1>Schüler*innen-Arbeitsbuch</h1>
-    {#if $user.id == undefined}
-        <a href="/login">Login</a>
-    {:else}
-        <button on:click={()=>{$user={}; pb.authStore.clear();}}>Logout</button>
-        {$user?.name}
-    {/if}
+<div class="theme-container" style="--primary-color: {color}">
 
-</header>
+    <header>
+        <h1>Schüler*innen-Arbeitsbuch</h1>
+        {#if $user.id == undefined}
+            <a href="/login">Login</a>
+        {:else}
+            <button on:click={()=>{$user={}; pb.authStore.clear();}}>Logout</button>
+            {$user?.name}
+        {/if}
 
-<div>
+    </header>
 
-    <aside>
-        <h2>Menü</h2>
-        <SidebarMenu />
-    </aside>
+    <div class="main-content">
+
+        <aside>
+            <h2>Menü</h2>
+            <SidebarMenu />
+        </aside>
+            
+        <main class="ui container">
+            <slot />
+        </main>
         
-    <main class="ui container">
-        <slot />
-    </main>
-    
-</div>
+    </div>
 
-<footer>Footer</footer>
+    <footer>Footer</footer>
+
+</div>
 
 <style>
 
-div {
+.main-content {
     display: flex;
     align-items: flex-start;
     min-height: 100vh;

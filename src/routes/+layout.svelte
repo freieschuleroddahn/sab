@@ -9,20 +9,20 @@
 </script>
 
 
-<header>
-    <h1>Schüler*innen-Arbeitsbuch</h1>
+
+<div>
+
+    <aside>
+         <h1>
+            Schüler*innen<br/>
+            Arbeitsbuch
+        </h1>
     {#if $user.id == undefined}
         <a href="/login">Login</a>
     {:else}
         <button on:click={()=>{$user={}; pb.authStore.clear();}}>Logout</button>
         {$user?.name}
     {/if}
-
-</header>
-
-<div>
-
-    <aside>
         <h2>Menü</h2>
         <SidebarMenu />
     </aside>
@@ -33,7 +33,7 @@
     
 </div>
 
-<footer>Footer</footer>
+<footer></footer>
 
 <style>
 
@@ -55,21 +55,23 @@ header {
 }
 
 main {
-    width: 65%;
+    width: 75%;
     padding: 0 5%;
     padding: 1rem;
 }
 
 aside {
     width: 25%;
+    max-width: 200px;
+    min-width: 150px;
     position: sticky;
     padding: 1rem;
-    top:100px;
+    top:0px;
 }
 
 footer {
     width: 100%;
     height: 300px;
-    background: rgb(170, 0, 255);
+  
 } 
 </style>

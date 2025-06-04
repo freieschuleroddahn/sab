@@ -1,5 +1,5 @@
 <script>
-    import "../app.css";
+    import "$lib/../app.css";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
     import { user } from '$lib/stores/user.js';
     import ThemeSelect from "$lib/components/ThemeSelect.svelte";

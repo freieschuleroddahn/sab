@@ -39,7 +39,7 @@ getFaecher();
         
           {#each fachbereich.expand["faecher(fachbereich)"] as seite}
               <a class="item" href="{seite.slug}">
-                 ⮞ {seite.name}
+                 {seite.name}
               </a>
           {/each}
        
@@ -79,6 +79,7 @@ getFaecher();
       h2 {
         font-size: 1.3rem;
         color: var(--text-on-primary);
+        word-break: break-all;
       }
     }
 

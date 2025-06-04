@@ -22,7 +22,7 @@
   getFaecher();
 </script>
 
-<div class="">
+<div>
 
   {#each fachbereiche as fachbereich}
     <div class="item">
@@ -31,7 +31,6 @@
            class:opened={(active == fachbereich.id) && (fachbereich.expand)}
            on:click={()=>{active = fachbereich.id}}
       >
-        <div class="arrow">⮞</div>
          {fachbereich.name}
       </div>
 
@@ -78,3 +77,4 @@
  }
 
 </style>
+

@@ -11,8 +11,8 @@
 :root {
     --background-light: #ffffff;
     --background-dark: #121212;
-    --text-light: #333333;
-    --text-dark: #f0f0f0;
+    --text-on-light: #333333;
+    --text-on-dark: #f0f0f0;
     --primary-light: #028a21;
     --primary-dark: #006b12;
     --text-on-primary: #efefef;
@@ -23,9 +23,15 @@
   /* Standard-Styles für den Light Mode */
   body {
     --background: var(--background-light);
-    --text: var(--text-light);
+    --text: var(--text-on-light);
     --primary: var(--primary-light);
-    
+
+  }
+
+  body.theme-dark {
+    --background: var(--background-dark);
+    --text: var(--text-dark);
+    --primary: var(--primary-dark);
   }
   
   /* Styles für den Dark Mode */

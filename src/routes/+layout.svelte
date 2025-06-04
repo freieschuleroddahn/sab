@@ -2,12 +2,18 @@
     import "../app.css";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
     import { user } from '$lib/stores/user.js';
+    import ThemeSelect from "$lib/components/ThemeSelect.svelte";
 
     import PocketBase from 'pocketbase';
     const url = 'https://sab-roddahn.kruw.de/'
     const pb = new PocketBase(url)
+
+    let color = 0;
 </script>
 
+<ThemeSelect bind:color />
+
+<div class="theme-container" style="--primary-color: {color}">
 
 
 <div>
@@ -37,7 +43,7 @@
 
 <style>
 
-div {
+.main-content {
     display: flex;
     align-items: flex-start;
     min-height: 100vh;

@@ -16,7 +16,7 @@
 <div class="theme-container" style="--primary-color: {color}">
 
 
-<div>
+<div class="main-content">
 
     <aside>
          <h1>
@@ -40,6 +40,8 @@
 </div>
 
 <footer></footer>
+
+</div>
 
 <style>
 

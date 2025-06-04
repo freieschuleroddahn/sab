@@ -1,15 +1,26 @@
 <script>
-    import "$lib/../app.css";
 	import SidebarMenu from "$lib/menues/SidebarMenue.svelte";
     import { user } from '$lib/stores/user.js';
     import ThemeSelect from "$lib/components/ThemeSelect.svelte";
+    import { goto } from '$app/navigation';
+    import { browser } from '$app/environment';
 
     import PocketBase from 'pocketbase';
     const url = 'https://sab-roddahn.kruw.de/'
     const pb = new PocketBase(url)
 
     let color = 0;
+
+
+    $: if(!$user.id && browser) {
+        goto("/login", {
+            "replaceState": true
+        });
+    }
+
 </script>
+
+{$user.id}
 
 <ThemeSelect bind:color />
 

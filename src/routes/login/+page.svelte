@@ -2,6 +2,8 @@
     import { Confetti } from "svelte-confetti";
     import PocketBase from 'pocketbase';
     import { user } from '$lib/stores/user.js';
+    import { goto } from '$app/navigation';
+    import { browser } from '$app/environment';
 
     const url = 'https://sab-roddahn.kruw.de/'
     const pb = new PocketBase(url)
@@ -15,6 +17,12 @@
         if(result.record) {
           $user = result.record;
         }
+    }
+
+    $: if($user.id && browser) {
+        goto("/", {
+            "replaceState": true
+        });
     }
   </script>
 

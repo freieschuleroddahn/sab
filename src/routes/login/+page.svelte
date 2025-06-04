@@ -19,10 +19,12 @@
   </script>
 
 {#if !$user?.id}
-<div>
-  <h1>Log in</h1>
 
-  <div>
+<div class="container">
+ 
+  <div class="formular">
+    <h1>Log in</h1>
+
 
     <input
       type="text"
@@ -38,25 +40,59 @@
     />
     <button on:click={login}>Log in</button>
 
-    {password} - {username}
-
   </div>
 
 </div>
+
 {:else}
+
   {$user.name}
 
   <div class="centered">
     <Confetti x={[-3.5, 3.5]} y={[0.5, 3.5]} delay={[0, 500]}  duration=2000 amount=500  size=10 />
   </div>
+
 {/if}
 
 
 
 <style lang="scss">
+
+.container {
+ 
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formular {
+  background-color: rgb(230, 230, 230);
+  width: 400px;
+  height: 300px;
+  padding:2rem;
+  border-radius: 0.5rem;
+}
+
+
+
+input, button {
+  padding:1em;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  
+}
+
+
+
   .centered {
     position: absolute;
     top:100vh;
     left:50%;
   }
+
 </style>

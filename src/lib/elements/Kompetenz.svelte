@@ -16,6 +16,7 @@
   let debounceTimer;
   let fileInput;
   let ukFiles = [];
+  let previewFile = null; // For image preview modal
 
   // Status calculation
   const getStatus = (value) => {
@@ -115,6 +116,50 @@
       fileInput.value = ''; // Reset input
     }
   }
+
+  async function deleteFile(fileRecord) {
+    if (!pb.authStore.isValid || !fileRecord?.id) return;
+
+    const confirmDelete = confirm(`Möchten Sie die Datei "${fileRecord.filename}" wirklich löschen?`);
+    if (!confirmDelete) return;
+
+    try {
+      await pb.collection('user_kompetenz_dateien').delete(fileRecord.id);
+      
+      // Update local data to remove the file
+      data.expand = {
+        ...data.expand,
+        'user_kompetenz_dateien(kompetenz)': (data.expand?.['user_kompetenz_dateien(kompetenz)'] || []).filter(f => f.id !== fileRecord.id)
+      };
+      
+      // Update ukFiles directly to hide immediately
+      ukFiles = ukFiles.filter(f => f.id !== fileRecord.id);
+    } catch (error) {
+      console.error('File deletion failed:', error);
+      alert('Fehler beim Löschen der Datei. Bitte versuchen Sie es erneut.');
+    }
+  }
+
+  function viewFile(file) {
+    if (file.datei.includes('.pdf')) {
+      // Open PDF in new tab
+      window.open(pb.getFileUrl(file, file.datei), '_blank');
+    } else {
+      // Show image in modal
+      previewFile = file;
+    }
+  }
+
+  function closePreview() {
+    previewFile = null;
+  }
+
+  // Close modal on escape key
+  function handleKeydown(event) {
+    if (event.key === 'Escape' && previewFile) {
+      closePreview();
+    }
+  }
 </script>
 <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
 <div class="competency-card">
@@ -189,11 +234,30 @@
                   />
                 {/if}
                 <div class="file-name">{file.filename}</div>
-                <a href="{pb.getFileUrl(file, file.datei)}" 
-                   download 
-                   class="download-overlay">
-                  ⬇️ Download
-                </a>
+                <div class="file-actions">
+                  <button 
+                    class="view-btn"
+                    on:click={() => viewFile(file)}
+                    title="Datei anzeigen"
+                  >
+                    👁️ Ansehen
+                  </button>
+                  <a href="{pb.getFileUrl(file, file.datei)}" 
+                     download 
+                     class="download-btn">
+                    ⬇️ Download
+                  </a>
+                  <button 
+                    class="delete-btn"
+                    on:click={() => deleteFile(file)}
+                    title="Datei löschen"
+                  >
+                    🗑️ Löschen
+                  </button>
+                </div>
+                <button class="delete-button" on:click={() => deleteFile(file)}>
+                  🗑️
+                </button>
               </div>
             {/each}
           </div>
@@ -226,7 +290,23 @@
       {/if}
     </div>
   {/if}
+
+  {#if previewFile}
+    <div class="preview-modal" on:click={closePreview}>
+      <div class="preview-content" on:click|stopPropagation>
+        <span class="close-preview" on:click={closePreview}>✖️</span>
+        {#if previewFile.datei.includes('.pdf')}
+          <embed src="{pb.getFileUrl(previewFile, previewFile.datei)}" type="application/pdf" class="pdf-preview-embed" />
+        {:else}
+          <img src="{pb.getFileUrl(previewFile, previewFile.datei)}" alt="Preview" class="image-preview" />
+        {/if}
+      </div>
+    </div>
+  {/if}
 </div>
+
+<!-- Global keyboard handler -->
+<svelte:window on:keydown={handleKeydown} />
 
 <style>
   :root {
@@ -356,6 +436,7 @@
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.2s;
+    position: relative;
   }
 
   .file-card:hover {
@@ -374,6 +455,58 @@
     font-size: 0.9em;
     text-align: center;
     word-break: break-word;
+  }
+
+  .file-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #f8f9fa;
+  }
+
+  .view-btn,
+  .download-btn,
+  .delete-btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  .view-btn {
+    background: #17a2b8;
+    color: white;
+  }
+
+  .view-btn:hover {
+    background: #138496;
+  }
+
+  .download-btn {
+    background: #28a745;
+    color: white;
+  }
+
+  .download-btn:hover {
+    background: #218838;
+  }
+
+  .delete-btn {
+    background: #dc3545;
+    color: white;
+  }
+
+  .delete-btn:hover {
+    background: #c82333;
   }
 
   .upload-button {
@@ -413,29 +546,10 @@
     margin-top: 1.5rem;
   }
 
-
-
   /* Add these styles */
   .file-card {
     position: relative;
     overflow: hidden;
-  }
-
-  .download-overlay {
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    text-align: center;
-    padding: 0.5rem;
-    transition: bottom 0.3s;
-    text-decoration: none;
-  }
-
-  .file-card:hover .download-overlay {
-    bottom: 0;
   }
 
   .pdf-preview {
@@ -445,5 +559,82 @@
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+  }
+
+  .delete-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .delete-button:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .preview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .preview-content {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-preview {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .close-preview:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .pdf-preview-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .image-preview {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
   }
 </style>

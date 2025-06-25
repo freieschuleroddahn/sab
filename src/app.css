@@ -13,8 +13,8 @@
     --background-dark: #121212;
     --text-on-light: #333333;
     --text-on-dark: #f0f0f0;
-    --primary-light: #028a21;
-    --primary-dark: #006b12;
+    --primary-light: hsl(var(--primary-color, 200), 50%, 50%);
+    --primary-dark: hsl(var(--primary-color, 200), 50%, 50%);
     --text-on-primary: #efefef;
 
     --border-radius: 8px;
@@ -36,7 +36,7 @@
   
   /* Styles für den Dark Mode */
   @media (prefers-color-scheme: dark) {
-    
+  
     body {
         --background: var(--background-dark);
         --text: var(--text-dark);

@@ -23,6 +23,12 @@
 </script>
 
 <div>
+  <!-- Profile Link -->
+  <div class="item profile-link">
+    <a href="/profile" class:active={$page.url.pathname === '/profile'}>
+      📝 Profil bearbeiten
+    </a>
+  </div>
 
   {#each fachbereiche as fachbereich}
     <div class="item">
@@ -76,5 +82,28 @@
   opacity: 0.5;
  }
 
+  .profile-link {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .profile-link a {
+    font-weight: 600;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 0;
+  }
+  
+  .profile-link a:hover {
+    color: #333;
+    opacity: 0.8;
+  }
+  
+  .profile-link a.active {
+    color: hsl(var(--primary-color, 200), 70%, 50%);
+    font-weight: bold;
+  }
 </style>
 

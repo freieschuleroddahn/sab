@@ -9,8 +9,10 @@
     const url = 'https://sab-roddahn.kruw.de/'
     const pb = new PocketBase(url)
 
-    let color = 0;
+    let color = $user.theme_color_hue || 200;
 
+    // Update color when user store changes
+    $: color = $user.theme_color_hue || 200;
 
     $: if(!$user.id && browser) {
         goto("/login", {
@@ -19,10 +21,6 @@
     }
 
 </script>
-
-{$user.id}
-
-<ThemeSelect bind:color />
 
 <div class="theme-container" style="--primary-color: {color}">
 

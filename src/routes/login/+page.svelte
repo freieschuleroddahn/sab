@@ -10,12 +10,19 @@
 
     let password = "";
     let username = "";
+    let errorMessage = "";
 
     async function login(){
-        let result = await pb.collection('users').authWithPassword(username, password);
-        console.log("LOGIN", result)
-        if(result.record) {
-          $user = result.record;
+        try {
+            errorMessage = "";
+            let result = await pb.collection('users').authWithPassword(username, password);
+            console.log("LOGIN", result)
+            if(result.record) {
+              $user = result.record;
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            errorMessage = "Login failed. Please check your username and password.";
         }
     }
 
@@ -33,6 +40,9 @@
   <div class="formular">
     <h1>Log in</h1>
 
+    {#if errorMessage}
+        <div class="error">{errorMessage}</div>
+    {/if}
 
     <input
       type="text"
@@ -93,6 +103,15 @@ input, button {
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   
+}
+
+.error {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ffcccc;
 }
 
 

@@ -121,7 +121,7 @@ async function getCustomUserKompetenz(fach) {
       on:click={() => showCreateForm = !showCreateForm}
       disabled={!$user.id}
     >
-      {showCreateForm ? 'Abbrechen' : '+ Neue Kompetenz erstellen'}
+      {showCreateForm ? 'Abbrechen' : '+ Neue eigene Kompetenz erstellen'}
     </button>
 
     {#if showCreateForm}

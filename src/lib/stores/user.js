@@ -12,4 +12,5 @@ export const user = persisted('user', {
     updated: undefined,
     username: undefined,
     verified: undefined,
+    theme_color_hue: 200,
 })

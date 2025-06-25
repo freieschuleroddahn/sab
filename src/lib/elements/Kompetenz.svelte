@@ -247,13 +247,13 @@
                      class="download-btn">
                     ⬇️ Download
                   </a>
-                  <button 
+                  <!-- <button 
                     class="delete-btn"
                     on:click={() => deleteFile(file)}
                     title="Datei löschen"
                   >
                     🗑️ Löschen
-                  </button>
+                  </button> -->
                 </div>
                 <button class="delete-button" on:click={() => deleteFile(file)}>
                   🗑️
@@ -542,6 +542,7 @@
 
   .material-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
   }

@@ -28,10 +28,12 @@
 <div class="main-content">
 
     <aside>
-         <h1>
-            Schüler*innen<br/>
-            Arbeitsbuch
-        </h1>
+         <a href="/">
+            <h1>
+                Schüler*innen<br/>
+                Arbeitsbuch
+            </h1>
+        </a>
     {#if $user.id == undefined}
         <a href="/login">Login</a>
     {:else}

@@ -19,7 +19,7 @@ async function getFaecher(fach) {
   faecher = await pb.collection('faecher').getFullList({
       sort: '-created',
       filter: `slug = "${fach}"`,
-      expand: "themen(fach), themen(fach).kompetenzen(thema), themen(fach).kompetenzen(thema).dateien(kompetenz), themen(fach).kompetenzen(thema).dateien(kompetenz).user_datei(datei), themen(fach).kompetenzen(thema).user_kompetenz(kompetenz),, themen(fach).kompetenzen(thema).user_kompetenz_datei(kompetenz)"
+      expand: "themen(fach), themen(fach).kompetenzen(thema), themen(fach).kompetenzen(thema).dateien(kompetenz), themen(fach).kompetenzen(thema).dateien(kompetenz).user_datei(datei), themen(fach).kompetenzen(thema).user_kompetenz(kompetenz),, themen(fach).kompetenzen(thema).user_kompetenz_dateien(kompetenz)"
   });
   console.log('faecher', faecher);
 }

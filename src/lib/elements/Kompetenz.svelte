@@ -28,7 +28,7 @@
   // Initialize from PocketBase data
   $: {
     try {
-      ukFiles = data?.expand?.['user_kompetenz_datei(kompetenz)'] || [];
+      ukFiles = data?.expand?.['user_kompetenz_dateien(kompetenz)'] || [];
       const ukArray = data?.expand?.['user_kompetenz(kompetenz)'] || [];
       const uk = ukArray.find(uk => uk?.user === $user?.id);
       userKompetenzRecord = uk || null;
@@ -101,11 +101,14 @@
       // Update local data to reflect new file
       data.expand = { 
         ...data.expand, 
-        'user_kompetenz_datei(kompetenz)': [
-          ...(data.expand?.['user_kompetenz_datei(kompetenz)'] || []), 
+        'user_kompetenz_dateien(kompetenz)': [
+          ...(data.expand?.['user_kompetenz_dateien(kompetenz)'] || []), 
           record
         ]
       };
+      
+      // Update ukFiles directly to show immediately
+      ukFiles = [...ukFiles, record];
     } catch (error) {
       console.error('File upload failed:', error);
     } finally {
@@ -159,8 +162,9 @@
   {#if opened}
     <div class="content">
       <div class="note-section">
-        <label>Notizen:</label>
+        <label for="note-textarea">Notizen:</label>
         <textarea
+          id="note-textarea"
           value={note}
           on:input={handleNote}
           placeholder="Notizen hier eingeben..."
@@ -314,13 +318,6 @@
   }
 
   .fancy-textarea {
-  /* Existing styles */
-  
-}
-
-
-
-  .fancy-textarea {
     width: 100%;
     padding: 1rem;
     border: 2px solid #e0e0e0;
@@ -330,8 +327,8 @@
     transition: border-color 0.3s;
     resize: vertical;
     transition: all 0.3s ease;
-  background: #f8f9fa;
-  border: 2px solid #e0e0e0;
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
   }
 
   .fancy-textarea:focus {

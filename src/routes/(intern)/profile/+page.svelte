@@ -265,10 +265,11 @@
     }
     
     .profile-form {
-        background: white;
+        background: var(--surface);
         padding: 2rem;
         border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
     }
     
     .form-group {
@@ -279,17 +280,19 @@
         display: block;
         margin-bottom: 0.5rem;
         font-weight: 600;
-        color: #333;
+        color: var(--text);
     }
     
     .form-group input[type="text"],
     .form-group input[type="password"] {
         width: 100%;
         padding: 0.75rem;
-        border: 2px solid #e1e5e9;
+        border: 2px solid var(--border);
         border-radius: 4px;
         font-size: 1rem;
-        transition: border-color 0.3s ease;
+        background: var(--surface);
+        color: var(--text);
+        transition: border-color 0.3s ease, background 0.3s ease;
     }
     
     .form-group input[type="text"]:focus,
@@ -302,7 +305,7 @@
         width: 100%;
         height: 6px;
         border-radius: 3px;
-        background: #ddd;
+        background: var(--surface-muted);
         outline: none;
     }
     
@@ -313,18 +316,18 @@
         color: white;
         text-align: center;
         font-weight: 600;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
     }
     
     .password-section {
         margin-top: 2rem;
         padding-top: 2rem;
-        border-top: 2px solid #e1e5e9;
+        border-top: 2px solid var(--border);
     }
     
     .password-section h3 {
         margin-bottom: 1rem;
-        color: #555;
+        color: var(--text);
     }
     
     .form-actions {
@@ -410,7 +413,7 @@
     
     h1 {
         text-align: center;
-        color: #333;
+        color: var(--text);
         margin-bottom: 2rem;
     }
 </style>

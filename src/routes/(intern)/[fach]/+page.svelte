@@ -92,6 +92,11 @@ async function getCustomUserKompetenz(fach) {
 
   {#if fach.expand?.["themen(fach)"]}
     {#each fach.expand["themen(fach)"] as thema}
+    {@const kompetenzen = thema.expand["kompetenzen(thema)"].filter((item)=>{
+            return item.name.includes(suchwort)
+          })}
+    {#if kompetenzen.length > 0}
+    
       <h3 class="pointer header" 
       class:opened={offen == thema.id}
       on:click={()=>{
@@ -103,18 +108,18 @@ async function getCustomUserKompetenz(fach) {
         
         }}>
           <div class="arrow">⮞</div>
-          {thema.name}
+          {thema.name} {kompetenzen.length}
         </h3>
 
       {#if thema.expand && offen == thema.id}
         {#if thema.expand?.["kompetenzen(thema)"]}
-          {#each thema.expand["kompetenzen(thema)"].filter((item)=>{
-            return item.name.includes(suchwort)
-          }) as data}
+          {#each kompetenzen as data}
           <!-- {JSON.stringify(data)} -->
             <Kompetenz data={data} />
           {/each}
         {/if}
+      {/if}
+
       {/if}
 
     {/each}
@@ -181,28 +186,29 @@ async function getCustomUserKompetenz(fach) {
 {/each}
 
 <style>
-  
-  .header:hover{
-        opacity: 0.5;
+  .header:hover {
+    opacity: 0.5;
   }
-  .header .arrow{
-      display: inline-block;
-      transition: all 0.1s ease-out;
+
+  .header .arrow {
+    display: inline-block;
+    transition: all 0.1s ease-out;
   }
-  .header.opened .arrow{
+
+  .header.opened .arrow {
     transform: rotate(90deg);
   }
 
   .create-section {
     margin: 1rem 0;
     padding: 1rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border);
     border-radius: 8px;
-    background: #f9f9f9;
+    background: var(--surface-muted);
   }
 
   .create-btn {
-    background: #007acc;
+    background: var(--primary);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -214,7 +220,7 @@ async function getCustomUserKompetenz(fach) {
   }
 
   .create-btn:hover:not(:disabled) {
-    background: #005a9e;
+    background: hsl(var(--primary-color), 70%, 45%);
   }
 
   .create-btn:disabled {
@@ -225,9 +231,9 @@ async function getCustomUserKompetenz(fach) {
   .create-form {
     margin-top: 1rem;
     padding: 1rem;
-    background: white;
+    background: var(--surface);
     border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
   }
 
   .form-group {
@@ -238,25 +244,27 @@ async function getCustomUserKompetenz(fach) {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: #333;
+    color: var(--text);
   }
 
   .form-group input,
   .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 4px;
     font-size: 0.9rem;
     font-family: inherit;
     box-sizing: border-box;
+    background: var(--surface);
+    color: var(--text);
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: #007acc;
-    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.1);
+    border-color: hsl(var(--primary-color), 70%, 50%);
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.12);
   }
 
   .form-actions {
@@ -289,9 +297,9 @@ async function getCustomUserKompetenz(fach) {
   .no-competencies {
     padding: 1rem;
     text-align: center;
-    color: #666;
+    color: var(--text-muted);
     font-style: italic;
-    background: #f5f5f5;
+    background: var(--surface-muted);
     border-radius: 4px;
     margin: 1rem 0;
   }

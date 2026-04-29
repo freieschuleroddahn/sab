@@ -1,67 +1,87 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 .pointer {
     cursor: pointer;
 }
 
-
 :root {
     --background-light: #ffffff;
     --background-dark: #121212;
+    --surface-light: #ffffff;
+    --surface-dark: #1f1f1f;
+    --surface-muted-light: #f8f9fa;
+    --surface-muted-dark: #222222;
+    --surface-alt-light: #f3f4f6;
+    --surface-alt-dark: #2b2b2b;
     --text-on-light: #333333;
     --text-on-dark: #f0f0f0;
+    --text-muted-light: #666666;
+    --text-muted-dark: #c4c4c4;
     --primary-light: hsl(var(--primary-color, 200), 50%, 50%);
     --primary-dark: hsl(var(--primary-color, 200), 50%, 50%);
     --text-on-primary: #efefef;
-
+    --border-light: #dee2e6;
+    --border-dark: #3e3e3e;
     --border-radius: 8px;
-  }
-  
-  /* Standard-Styles für den Light Mode */
-  body {
+    --shadow-light: 0 12px 30px rgba(0, 0, 0, 0.08);
+    --shadow-dark: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+body {
     --background: var(--background-light);
+    --surface: var(--surface-light);
+    --surface-muted: var(--surface-muted-light);
+    --surface-alt: var(--surface-alt-light);
     --text: var(--text-on-light);
+    --text-muted: var(--text-muted-light);
+    --border: var(--border-light);
+    --shadow: var(--shadow-light);
     --primary: var(--primary-light);
+    color-scheme: light;
+}
 
-  }
-
-  body.theme-dark {
+body.theme-dark,
+@media (prefers-color-scheme: dark) body {
     --background: var(--background-dark);
+    --surface: var(--surface-dark);
+    --surface-muted: var(--surface-muted-dark);
+    --surface-alt: var(--surface-alt-dark);
     --text: var(--text-on-dark);
+    --text-muted: var(--text-muted-dark);
+    --border: var(--border-dark);
+    --shadow: var(--shadow-dark);
     --primary: var(--primary-dark);
-  }
-  
-  /* Styles für den Dark Mode */
-  @media (prefers-color-scheme: dark) {
-  
-    body {
-        --background: var(--background-dark);
-        --text: var(--text-on-dark);
-        --primary: var(--primary-dark)
-    }
-  
-  }
+    color-scheme: dark;
+}
 
-
-  body {
-  background-color: var(--background);
-  color: var(--text);
-  }
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 a {
     color: var(--primary);
 }
 
-input, button {
-  background-color:hsl(var(--primary-color) 50% 50%);
-  padding:1em;
-  display: block;
-  width: 100%;
-  border: none;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  color:rgb(255, 255, 255);
+input,
+button {
+    background-color: hsl(var(--primary-color) 50% 50%);
+    color: #fff;
+    padding: 1em;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+textarea,
+select {
+    font-family: inherit;
 }

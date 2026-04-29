@@ -309,34 +309,28 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <style>
-  :root {
-    --red: #ff4444;
-    --orange: #ff9900;
-    --green: #00c851;
-    --blue: #2196F3;
-    --shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
   .competency-card {
-    background: white;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
     box-shadow: var(--shadow);
     margin: 1rem 0;
     overflow: hidden;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .header {
     padding: 1.5rem;
-    background: #f8f9fa;
+    background: var(--surface-muted);
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s ease;
   }
 
   .header:hover {
-    background: #f1f3f5;
+    background: var(--surface-alt);
   }
 
   .status-buttons {
@@ -360,20 +354,20 @@
     box-shadow: var(--shadow);
   }
 
-  .red { background: var(--red); }
-  .orange { background: var(--orange); }
-  .green { background: var(--green); }
+  .red { background: #ff4444; }
+  .orange { background: #ff9900; }
+  .green { background: #00c851; }
 
   .slider-container {
     padding: 1rem 2rem;
-    background: #f8f9fa;
-    border-bottom: 1px solid #eee;
+    background: var(--surface-muted);
+    border-bottom: 1px solid var(--border);
     position: relative;
   }
 
   .loader {
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid var(--blue);
+    border: 3px solid rgba(255, 255, 255, 0.35);
+    border-top: 3px solid #2196F3;
     border-radius: 50%;
     width: 24px;
     height: 24px;
@@ -400,29 +394,27 @@
   .fancy-textarea {
     width: 100%;
     padding: 1rem;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--border);
     border-radius: 8px;
     min-height: 100px;
     font-family: inherit;
-    transition: border-color 0.3s;
     resize: vertical;
-    transition: all 0.3s ease;
-    background: #f8f9fa;
-    border: 2px solid #e0e0e0;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    background: var(--surface);
+    color: var(--text);
   }
 
   .fancy-textarea:focus {
-    background: white;
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    background: var(--surface);
+    border-color: hsl(var(--primary-color), 70%, 50%);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.12);
     outline: none;
   }
 
   .fancy-textarea::placeholder {
-  color: #999;
-  font-style: italic;
-}
-
+    color: var(--text-muted);
+    font-style: italic;
+  }
 
   .file-grid {
     display: grid;
@@ -432,22 +424,24 @@
   }
 
   .file-card {
-    border: 1px solid #dee2e6;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
   }
 
   .file-card:hover {
     transform: translateY(-3px);
+    box-shadow: var(--shadow);
   }
 
   .file-preview {
     width: 100%;
     height: 120px;
     object-fit: cover;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--border);
   }
 
   .file-name {
@@ -455,6 +449,7 @@
     font-size: 0.9em;
     text-align: center;
     word-break: break-word;
+    color: var(--text);
   }
 
   .file-actions {
@@ -462,7 +457,7 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.75rem;
-    background: #f8f9fa;
+    background: var(--surface-muted);
   }
 
   .view-btn,
@@ -475,7 +470,7 @@
     cursor: pointer;
     text-decoration: none;
     text-align: center;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -523,11 +518,11 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.8rem 1.5rem;
-    background: var(--blue);
+    background: #2196F3;
     color: white;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   }
 
   .upload-label:hover {
@@ -536,7 +531,7 @@
 
   .material-section {
     margin-top: 2rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
     padding-top: 2rem;
   }
 
@@ -547,26 +542,21 @@
     margin-top: 1.5rem;
   }
 
-  /* Add these styles */
-  .file-card {
-    position: relative;
-    overflow: hidden;
-  }
-
   .pdf-preview {
     height: 120px;
-    background: #f0f0f0;
+    background: var(--surface-alt);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+    color: var(--text-muted);
   }
 
   .delete-button {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
     width: 32px;
@@ -575,7 +565,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   }
 
   .delete-button:hover {
@@ -596,7 +586,7 @@
   }
 
   .preview-content {
-    background: white;
+    background: var(--surface);
     border-radius: 8px;
     overflow: hidden;
     position: relative;
@@ -611,7 +601,7 @@
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
     width: 32px;
@@ -620,7 +610,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   }
 
   .close-preview:hover {

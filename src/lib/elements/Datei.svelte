@@ -216,33 +216,35 @@
 
 <style>
   .file-card {
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
-    background: white;
+    background: var(--surface);
   }
 
   .file-card:hover {
     transform: translateY(-3px);
+    box-shadow: var(--shadow);
   }
 
   .file-preview {
     width: 100%;
     height: 120px;
     object-fit: cover;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--border);
   }
 
   .file-icon-preview {
     height: 120px;
-    background: #f0f0f0;
+    background: var(--surface-alt);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
   }
 
   .file-name {
@@ -251,13 +253,13 @@
     text-align: center;
     word-break: break-word;
     font-weight: 600;
-    color: #333;
+    color: var(--text);
   }
 
   .file-description {
     padding: 0 0.75rem;
     font-size: 0.8em;
-    color: #666;
+    color: var(--text-muted);
     text-align: center;
     line-height: 1.4;
     margin-bottom: 0.5rem;
@@ -268,7 +270,7 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.75rem;
-    background: #f8f9fa;
+    background: var(--surface-muted);
   }
 
   .view-btn,
@@ -280,7 +282,7 @@
     cursor: pointer;
     text-decoration: none;
     text-align: center;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -315,7 +317,7 @@
 
   .status-btn {
     background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--border);
     border-radius: 4px;
     width: 24px;
     height: 24px;
@@ -325,10 +327,11 @@
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 0.7rem;
+    color: var(--text);
   }
 
   .status-btn:hover {
-    background: white;
+    background: var(--surface);
     transform: scale(1.1);
   }
 
@@ -350,7 +353,6 @@
     border-color: #28a745;
   }
 
-  /* Modal styles */
   .preview-modal {
     position: fixed;
     top: 0;
@@ -365,7 +367,7 @@
   }
 
   .preview-content {
-    background: white;
+    background: var(--surface);
     border-radius: 8px;
     overflow: hidden;
     position: relative;
@@ -388,24 +390,24 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
     z-index: 1001;
     font-size: 1.2rem;
   }
 
   .close-btn:hover {
-    background: white;
+    background: rgba(255, 255, 255, 1);
   }
 
   .preview-header {
     padding: 1rem;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid var(--border);
   }
 
   .preview-header h3 {
     margin: 0;
     font-size: 1.1rem;
-    color: #333;
+    color: var(--text);
   }
 
   .preview-body {
@@ -424,7 +426,7 @@
 
   .preview-actions {
     padding: 1rem;
-    border-top: 1px solid #e9ecef;
+    border-top: 1px solid var(--border);
     display: flex;
     justify-content: center;
   }

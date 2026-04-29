@@ -56,6 +56,12 @@
 
 <style>
 
+.theme-container {
+    background: var(--background);
+    color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
 .main-content {
     display: flex;
     align-items: flex-start;
@@ -68,8 +74,8 @@ header {
     text-align: center;
     position: sticky;
     top:0;
-    background: white;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background: var(--surface);
+    box-shadow: 0 7px 29px rgba(100, 100, 111, 0.15);
     z-index: 99;
 }
 
@@ -86,11 +92,12 @@ aside {
     position: sticky;
     padding: 1rem;
     top:0px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
 }
 
 footer {
     width: 100%;
     height: 300px;
-  
-} 
+}
 </style>

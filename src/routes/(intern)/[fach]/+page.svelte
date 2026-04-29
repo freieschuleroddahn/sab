@@ -73,7 +73,14 @@ async function getCustomUserKompetenz(fach) {
       }
     }
       
+    let suchwort = "";
+
+	
+
+
 </script>
+
+<input bind:value={suchwort} />
 
 {#each faecher as fach}
 
@@ -101,7 +108,9 @@ async function getCustomUserKompetenz(fach) {
 
       {#if thema.expand && offen == thema.id}
         {#if thema.expand?.["kompetenzen(thema)"]}
-          {#each thema.expand["kompetenzen(thema)"] as data}
+          {#each thema.expand["kompetenzen(thema)"].filter((item)=>{
+            return item.name.includes(suchwort)
+          }) as data}
           <!-- {JSON.stringify(data)} -->
             <Kompetenz data={data} />
           {/each}
